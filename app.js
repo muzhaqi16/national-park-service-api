@@ -7,6 +7,8 @@ const stateAbbreviations = [
  'MP','OH','OK','OR','PW','PA','PR','RI','SC','SD','TN','TX','UT',
  'VT','VI','VA','WA','WV','WI','WY'
 ];
+const stateNames = ['Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+
 const url = 'https://developer.nps.gov/api/v1/parks';
 const apiKey ='RDV2BfeR49gRmz2bhyUTZaHG1wOi3dKSwbo5EqsD';
 // const options = {
@@ -20,14 +22,14 @@ function formatQueryParams(params) {
 }
 function getParksByState(state,limit=10){
   const params = {
-    stateCode: state,
+    stateCode: state.join(','),
     limit: limit,
     api_key:apiKey
   };
 
   const queryString = formatQueryParams(params);
   let urlQuery = url +"?"+queryString;
-
+  console.log(urlQuery);
   fetch(urlQuery)
     .then(response => {
       if (response.ok) {
@@ -52,7 +54,7 @@ function displayParks(parksArray){
   });
 }
 function handleSubmit(){
-  stateAbbreviations.forEach(state =>$('#state-select').append(`<option value="${state}">${state}</option>`));
+  stateAbbreviations.forEach((state,index) =>$('#state-select').append(`<option value="${state}">${stateNames[index]}</option>`));
   $('form').on('submit',event=>{
     event.preventDefault();
     let state = $('#state-select').val();

@@ -1,3 +1,21 @@
 .hidden{
   display: none;
 }
+.container{
+  width:70%;
+  margin:0 auto;
+  text-align: center;
+}
+form label,select,input{
+  display: block;
+  margin:10px auto;
+}
+input[type=submit]{
+  padding: 10px;
+  margin-top:20px;
+  font-size: 20px;
+  cursor: pointer;
+}
+ul li{
+  list-style: none;
+}
